@@ -47,7 +47,7 @@ AI_project/
 ### 1️⃣ Install Required Libraries
 Ensure you have Python 3.10+ installed, then run:
 ```bash
-pip install opencv-python face-recognition numpy pygame
+pip install -r requirements.txt
 ```
 
 ### 2️⃣ Configure Known Faces
