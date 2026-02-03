@@ -1,149 +1,86 @@
-📌 Project Overview
+# 🛡️ Real-Time Facial Recognition Security System
 
-This project is a real-time facial recognition system built using Python.
-It uses a webcam to detect faces, recognize known people, and trigger alerts when an unknown person is detected.
+A robust Python-based security application that utilizes computer vision to identify known individuals and trigger automated alerts for unauthorized faces.
 
-The system is designed as a security / monitoring application and demonstrates the practical use of Artificial Intelligence and Computer Vision concepts.
+---
 
-🎯 Key Features
+## 📌 Project Overview
+This system leverages a live webcam feed to perform face detection and recognition in real-time. Designed as a monitoring tool, it demonstrates the practical integration of **Artificial Intelligence** and **Computer Vision** to solve real-world security challenges.
 
-Real-time face detection using webcam
+## 🎯 Key Features
+* **Real-Time Detection:** Low-latency face processing using standard webcams.
+* **Visual Feedback:** Dynamic bounding boxes (Green for recognized, Red for unknown).
+* **Instant Alerts:** Automated audio alarms via `pygame` when an intruder is detected.
+* **Smart Cooldown:** Logic-based alert system to prevent repetitive noise while a face is in frame.
+* **Auto-Archiving:** Automatically saves snapshots of unknown faces to a dedicated folder.
+* **Detailed Logging:** Records timestamps, names, and confidence scores to a `CSV` file for auditing.
 
-Recognizes known faces (green box)
+---
 
-Detects unknown faces (red box)
+## 🛠️ Technologies Used
+| Category | Technology |
+| :--- | :--- |
+| **Language** | Python 3.10 |
+| **Computer Vision** | OpenCV (cv2), face_recognition |
+| **Data Handling** | NumPy, CSV Module |
+| **Audio/UI** | Pygame |
 
-Plays an alert sound when an unknown face appears
+---
 
-Saves images of unknown faces automatically
-
-Logs detections (time, name, confidence) to a CSV file
-
-Prevents repeated alerts using smart cooldown logic
-
-🛠️ Technologies Used
-
-Python 3.10
-
-OpenCV (cv2) – for webcam and image processing
-
-face_recognition – for face detection and recognition
-
-NumPy – for numerical calculations
-
-pygame – for playing alert sound
-
-CSV module – for logging data
-
-📂 Folder Structure
+## 📂 Folder Structure
+```text
 AI_project/
 │
-├── face_detector.py        # Main program
-├── alert.mp3               # Alert sound
-├── known_faces/             # Images of known people
-│   └── person1.jpg
-├── unknown_faces/           # Saved unknown face images
-├── logs.csv                 # Detection logs
-├── README.md                # Project documentation
+├── face_detector.py        # Main execution script
+├── alert.mp3               # Alert sound file
+├── known_faces/            # Database for authorized personnel images
+│   └── person1.jpg         # Example: rahul.jpg
+├── unknown_faces/          # Directory for captured intruder snapshots
+├── logs.csv                # Automated detection logs
+└── README.md               # Project documentation
+```
 
-▶️ How to Run the Program
-1️⃣ Install Required Libraries
+---
 
-Run the following command in the terminal:
+## ▶️ Getting Started
 
+### 1️⃣ Install Required Libraries
+Ensure you have Python 3.10+ installed, then run:
+```bash
 pip install opencv-python face-recognition numpy pygame
+```
 
-2️⃣ Add Known Faces
+### 2️⃣ Configure Known Faces
+Add high-quality images of authorized people to the `known_faces/` directory.
+> **Note:** The filename will be used as the person's name in the system (e.g., `john_doe.jpg` will appear as "John Doe").
 
-Place clear images of known people inside the known_faces folder
-
-Image filename should be the person’s name
-Example:
-
-rahul.jpg
-
-3️⃣ Run the Program
+### 3️⃣ Run the Application
+```bash
 python face_detector.py
+```
+* **To Exit:** Press `Q` on your keyboard.
 
+---
 
-Press Q to exit the program
+## 🔍 How It Works
+1.  **Frame Capture:** The system pulls live video frames from the webcam.
+2.  **Encoding:** Detected faces are converted into a 128-dimension vector (Face Encoding).
+3.  **Comparison:** The system calculates the Euclidean distance between the live encoding and the stored encodings.
+4.  **Thresholding:**
+    * If the distance is within the threshold: **Authorized Access** (Green Box).
+    * If the distance exceeds the threshold: **Intruder Alert** (Red Box + Alarm).
+5.  **Logging:** Data is appended to `logs.csv` using the following format:
+    `[Timestamp, Name/Unknown, Confidence %]`
 
-🔍 How the System Works (Simple Explanation)
+---
 
-The webcam captures live video frames.
+## 🚀 Future Roadmap
+* [ ] **Mobile Integration:** Send push notifications via Telegram or WhatsApp.
+* [ ] **Cloud Support:** Sync captured images to an AWS S3 bucket.
+* [ ] **Web Dashboard:** A Flask/Streamlit interface to view logs and live feeds remotely.
+* [ ] **ID Tracking:** Assign unique IDs to unknown faces to track movement history.
 
-Each frame is converted into a format suitable for face detection.
+---
 
-Faces are detected in the frame.
-
-Each detected face is converted into numerical data (face encoding).
-
-The system compares detected faces with known faces.
-
-If a match is found → green box + name
-
-If no match is found → red box + alert sound
-
-Unknown face images are saved automatically.
-
-All detections are logged with time and confidence.
-
-📊 Confidence Score
-
-The confidence value represents how closely a face matches a known face.
-
-Higher percentage means higher similarity.
-
-A threshold value is used to decide whether a face is known or unknown.
-
-🚨 Alert Logic
-
-The alert sound plays only once when an unknown face enters.
-
-It does not repeat continuously.
-
-The alert resets only after the face leaves the frame.
-
-This prevents noise and false alarms.
-
-🧾 Logging
-
-Each detection is saved in logs.csv with:
-
-Timestamp
-
-Person name (or "Unknown")
-
-Confidence percentage
-
-This allows future review and analysis.
-
-🧠 Educational Purpose
-
-This project demonstrates:
-
-Practical use of AI libraries
-
-Real-time data processing
-
-Logical decision-making using conditions
-
-File handling and logging
-
-Ethical and responsible use of AI
-
-The AI models used are pre-trained, and the focus of the project is on application and logic, not training models from scratch.
-
-🚀 Possible Future Improvements
-
-Face tracking IDs
-
-Mobile notifications
-
-IP camera support
-
-Web dashboard
-
-Auto-enrollment of new faces
-
-Executable (.exe) deployment
+## 🧠 Educational Purpose
+This project was developed to explore the intersection of AI and security. It highlights the use of **pre-trained deep learning models** and the implementation of practical logic, such as debouncing alerts and file I/O management.
